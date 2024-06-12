@@ -41,8 +41,8 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "baseHref": "/aave/",
-            "deployUrl": "/aave/"
+            "baseHref": "/etherfi/",
+            "deployUrl": "/etherfi/"
           },
           "configurations": {
             "production": {
