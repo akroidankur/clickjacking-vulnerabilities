@@ -41,8 +41,8 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "baseHref": "/yearn/",
-            "deployUrl": "/yearn/"
+            "baseHref": "/pump/",
+            "deployUrl": "/pump/"
           },
           "configurations": {
             "production": {
