@@ -40,7 +40,9 @@
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "baseHref": "/aave/",
+            "deployUrl": "/aave/"
           },
           "configurations": {
             "production": {
