@@ -41,8 +41,8 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "baseHref": "/aave/",
-            "deployUrl": "/aave/"
+            "baseHref": "/mintharvest/",
+            "deployUrl": "/mintharvest/"
           },
           "configurations": {
             "production": {
