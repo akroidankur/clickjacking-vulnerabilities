@@ -25,7 +25,7 @@ export class AppComponent implements AfterViewInit {
   async connectToMaliciousSite() {
     try {
       await this.connectMetamask('malicious');
-      this.reloadAaveIframe();
+      this.reloadSushiswapIframe();
       this.supplyEth = true;
       this.spinner = false;
       this.iframeOpacity = 1;
@@ -35,7 +35,7 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  async connectMetamask(target: 'malicious' | 'aave'): Promise<any> {
+  async connectMetamask(target: 'malicious' | 'sushiswap'): Promise<any> {
     return new Promise((resolve, reject) => {
       const ethereum = (window as any).ethereum;
       if (ethereum) {
@@ -56,11 +56,11 @@ export class AppComponent implements AfterViewInit {
     });
   }
 
-  reloadAaveIframe() {
-    const iframe = document.getElementById('aaveIframe') as HTMLIFrameElement;
+  reloadSushiswapIframe() {
+    const iframe = document.getElementById('sushiswapIframe') as HTMLIFrameElement;
     if (iframe) {
       iframe.onload = () => {
-        this.connectAaveInIframe();
+        this.connectSushiswapInIframe();
       };
       iframe.src = iframe.src;
     } else {
@@ -68,8 +68,8 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  connectAaveInIframe() {
-    const iframe = document.getElementById('aaveIframe') as HTMLIFrameElement;
+  connectSushiswapInIframe() {
+    const iframe = document.getElementById('sushiswapIframe') as HTMLIFrameElement;
     if (iframe?.contentWindow) {
       iframe.contentWindow.postMessage('connectWallet', '*');
     } else {
@@ -78,7 +78,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   handleIframeLoad() {
-    const iframe = document.getElementById('aaveIframe') as HTMLIFrameElement;
+    const iframe = document.getElementById('sushiswapIframe') as HTMLIFrameElement;
     if (iframe?.contentWindow) {
       iframe.contentWindow.postMessage(`
         <script>
@@ -87,9 +87,9 @@ export class AppComponent implements AfterViewInit {
               if (window.ethereum) {
                 window.ethereum.request({ method: 'eth_requestAccounts' })
                   .then(accounts => {
-                    console.log('Connected to Aave:', accounts);
+                    console.log('Connected to Sushiswap:', accounts);
                   })
-                  .catch(err => console.error('Error connecting to Aave:', err));
+                  .catch(err => console.error('Error connecting to Sushiswap:', err));
               } else {
                 alert('MetaMask not found');
               }
