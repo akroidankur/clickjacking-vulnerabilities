@@ -1,6 +1,6 @@
 <main>
   <section class="left">
-    <iframe id="aaveIframe" (load)="handleIframeLoad()" [style.opacity]="iframeOpacity" src="https://app.aave.com">
+    <iframe id="arkadikoIframe" (load)="handleIframeLoad()" [style.opacity]="iframeOpacity" src="https://app.arkadiko.finance/">
     </iframe>
 
     <button class="supply-eth" *ngIf="supplyEth" [style.opacity]="buttonOpacity" (click)="sendEthToTarget()">
@@ -45,10 +45,10 @@
       <h4>2. After connecting:</h4>
       <p>
         2.1 The "Send ETH Malicious" button becomes active with large width and height, and a positive z-index,
-        ensuring it stays on top of the Aave iframe.
+        ensuring it stays on top of the Arkadiko iframe.
       </p>
 
-      <h4>3. Whenever the victim clicks anywhere in the Aave iframe:</h4>
+      <h4>3. Whenever the victim clicks anywhere in the Arkadiko iframe:</h4>
       <p>
         3.1 The victim is actually clicking on the malicious button, which triggers a MetaMask transaction approval
         request to send ETH to the malicious target address.<br>
