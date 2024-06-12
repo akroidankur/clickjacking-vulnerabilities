@@ -41,8 +41,8 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "baseHref": "/aave/",
-            "deployUrl": "/aave/"
+            "baseHref": "/apporderly/",
+            "deployUrl": "/apporderly/"
           },
           "configurations": {
             "production": {
