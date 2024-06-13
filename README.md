@@ -1,5 +1,10 @@
 # ClickjackingVulnerabilities
 
+Install NodeJS v20.9.0
+Install NPM npm@10.2.4
+Install Angular -g @angular/cli@17.0.9
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.9.
 
 ## Development server
